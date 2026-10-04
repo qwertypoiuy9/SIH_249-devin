@@ -58,6 +58,7 @@ const TITLES: Record<PageKey, string> = {
 
 export default function App() {
   const [page, setPage] = useState<PageKey>('overview')
+  const [navOpen, setNavOpen] = useState(true)
   const [aircraftId, setAircraftId] = useState('AC-02')
   const [now, setNow] = useState(() => new Date())
 
@@ -79,7 +80,7 @@ export default function App() {
 
   return (
     <PlatformProvider>
-    <div className="shell">
+    <div className={`shell${navOpen ? '' : ' nav-closed'}`}>
       <aside className="sidebar">
         <div className="brand">
           <div className="brand-mark">AP</div>
@@ -87,6 +88,15 @@ export default function App() {
             <div className="brand-name">AIRPOWER</div>
             <div className="brand-sub">Maint. Analytics</div>
           </div>
+          <button
+            type="button"
+            className="nav-toggle"
+            title="Close sidebar"
+            aria-label="Close sidebar"
+            onClick={() => setNavOpen(false)}
+          >
+            ✕
+          </button>
         </div>
 
         {NAV.map((g) => (
@@ -107,20 +117,21 @@ export default function App() {
           </div>
         ))}
 
-        <div className="sidebar-foot">
-          <div>
-            <b style={{ color: '#93a9c9' }}>Problem 26249</b>
-          </div>
-          <div>Predictive maintenance & fleet availability</div>
-          <div style={{ marginTop: 6 }}>MoD · DSSC · Software</div>
-          <div style={{ marginTop: 10, color: '#4b5f80' }}>
-            Simulated dataset — no operational aircraft connectivity.
-          </div>
-        </div>
       </aside>
 
       <div className="main">
         <header className="topbar">
+          {!navOpen && (
+            <button
+              type="button"
+              className="nav-toggle dark"
+              title="Open sidebar"
+              aria-label="Open sidebar"
+              onClick={() => setNavOpen(true)}
+            >
+              ☰
+            </button>
+          )}
           <div>
             <div className="crumb">Air Power · {TITLES[page]}</div>
             <h1>{TITLES[page]}</h1>

@@ -79,9 +79,18 @@ button {
   min-height: 100vh;
 }
 
+.shell.nav-closed {
+  grid-template-columns: 0 1fr;
+}
+
+.shell.nav-closed .sidebar {
+  display: none;
+}
+
 .sidebar {
-  border-right: 1px solid var(--line-soft);
-  background: linear-gradient(180deg, rgba(15, 23, 41, 0.9), rgba(9, 14, 26, 0.9));
+  border-right: 1px solid #d2e0f2;
+  background: linear-gradient(180deg, #eff5fc, #e6eefb);
+  color: #17263f;
   padding: 18px 14px;
   position: sticky;
   top: 0;
@@ -118,7 +127,7 @@ button {
 
 .brand-sub {
   font-size: 11px;
-  color: var(--dim);
+  color: #6d809d;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -127,7 +136,7 @@ button {
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--dim);
+  color: #6b7f9c;
   padding: 14px 10px 6px;
 }
 
@@ -140,20 +149,21 @@ button {
   background: transparent;
   border-radius: 10px;
   padding: 9px 10px;
-  color: var(--muted);
+  color: #465975;
   text-align: left;
   transition: 0.15s;
 }
 
 .nav-item:hover {
-  background: rgba(76, 194, 255, 0.07);
-  color: var(--text);
+  background: rgba(29, 122, 224, 0.1);
+  color: #12213a;
 }
 
 .nav-item.on {
-  background: linear-gradient(90deg, rgba(76, 194, 255, 0.16), rgba(76, 194, 255, 0.03));
-  border-color: rgba(76, 194, 255, 0.35);
+  background: #1d7ae0;
+  border-color: #1d7ae0;
   color: #fff;
+  box-shadow: 0 4px 12px rgba(29, 122, 224, 0.28);
 }
 
 .nav-item .ico {
@@ -172,12 +182,39 @@ button {
   padding: 1px 7px;
 }
 
-.sidebar-foot {
-  margin-top: auto;
-  border-top: 1px solid var(--line-soft);
-  padding-top: 12px;
-  font-size: 11.5px;
-  color: var(--dim);
+.nav-toggle {
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 8px;
+  border: 1px solid #cbdcee;
+  background: rgba(255, 255, 255, 0.75);
+  color: #4a5d7a;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  line-height: 1;
+  transition: 0.15s;
+}
+
+.nav-toggle:hover {
+  background: #fff;
+  color: #1d7ae0;
+  border-color: #1d7ae0;
+}
+
+.nav-toggle.dark {
+  margin-left: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #cbd5e1;
+}
+
+.nav-toggle.dark:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(76, 194, 255, 0.5);
+  color: #fff;
 }
 
 .main {
@@ -1092,8 +1129,9 @@ button {
 .aog-banner b { color: var(--bad); }
 
 /* ============================================================ light centre-page surfaces
-   The sidebar and top bar keep the dark console palette; everything inside
-   .content is restated for a light-blue background. */
+   The top bar keeps the dark console palette; the sidebar is a soft light
+   blue that matches the white cards; everything inside .content is restated
+   for a light-blue background. */
 .content .card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 249, 255, 0.94));
   border-color: var(--line-soft);
