@@ -58,7 +58,7 @@ const TITLES: Record<PageKey, string> = {
 
 export default function App() {
   const [page, setPage] = useState<PageKey>('overview')
-  const [navOpen, setNavOpen] = useState(true)
+  const [navOpen, setNavOpen] = useState(() => window.innerWidth > 860)
   const [aircraftId, setAircraftId] = useState('AC-02')
   const [now, setNow] = useState(() => new Date())
 
@@ -75,6 +75,7 @@ export default function App() {
 
   const go = (k: PageKey) => {
     setPage(k)
+    if (window.innerWidth <= 860) setNavOpen(false)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -118,6 +119,8 @@ export default function App() {
         ))}
 
       </aside>
+
+      {navOpen && <div className="nav-backdrop" onClick={() => setNavOpen(false)} />}
 
       <div className="main">
         <header className="topbar">

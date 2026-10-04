@@ -87,6 +87,10 @@ button {
   display: none;
 }
 
+.nav-backdrop {
+  display: none;
+}
+
 .sidebar {
   border-right: 1px solid #d2e0f2;
   background: linear-gradient(180deg, #eff5fc, #e6eefb);
@@ -1288,8 +1292,68 @@ button {
 }
 
 @media (max-width: 860px) {
-  .shell { grid-template-columns: 1fr; }
-  .sidebar { position: relative; height: auto; }
-  .g2, .g4 { grid-template-columns: 1fr; }
+  /* the sidebar becomes an off-canvas drawer: closing it never reflows
+     the page — content width stays identical in both states */
+  .shell,
+  .shell.nav-closed {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 268px;
+    height: 100vh;
+    height: 100dvh;
+    transform: translateX(-105%);
+    transition: transform 0.25s ease;
+    z-index: 70;
+    box-shadow: 0 0 40px rgba(8, 15, 30, 0.4);
+    overflow-y: auto;
+  }
+
+  .shell:not(.nav-closed) .sidebar {
+    transform: translateX(0);
+  }
+
+  /* keep the drawer mounted so it can slide (base rule hides it) */
+  .shell.nav-closed .sidebar {
+    display: flex;
+  }
+
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 15, 30, 0.5);
+    z-index: 60;
+    border: 0;
+    padding: 0;
+  }
+
+  /* compact top bar */
+  .topbar {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  .topbar .crumb,
+  .topbar .live {
+    display: none;
+  }
+
+  .topbar h1 {
+    font-size: 16px;
+  }
+
+  .topbar-right .chip {
+    display: none;
+  }
+
+  .g2,
+  .g3,
+  .g4 { grid-template-columns: 1fr; }
   .twin-life { grid-template-columns: 1fr; }
 }
